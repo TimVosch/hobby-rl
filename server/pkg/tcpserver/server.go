@@ -47,8 +47,10 @@ func (s *Server) StartListening() error {
 					fmt.Printf("Error accepting client! %s\n", err)
 					continue
 				}
-				fmt.Printf("Accepted client!\n")
-				go ClientHandler(c)
+				fmt.Printf("[ii] Accepted '%s'\n", c.RemoteAddr())
+
+				client := NewClient(c)
+				go client.Handle()
 			}
 		}
 	}()
