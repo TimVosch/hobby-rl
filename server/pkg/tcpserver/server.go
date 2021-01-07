@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"net"
+
+	"github.com/timvosch/hobby-rl/pkg/client"
 )
 
 // Server contains configuration and state
@@ -49,7 +51,8 @@ func (s *Server) StartListening() error {
 				}
 				fmt.Printf("[ii] Accepted '%s'\n", c.RemoteAddr())
 
-				client := NewClient(c)
+				// Delegate responsibility to client handler
+				client := client.New(c)
 				go client.Handle()
 			}
 		}
